@@ -20,7 +20,8 @@ public final class PersonRepositoryImpl implements PersonRepository {
 
     private final PersonCache mCache;
 
-    public PersonRepositoryImpl(PersonDataSource remoteDataSource, PersonLocalDataSource localDataSource, PersonCache cache) {
+    public PersonRepositoryImpl(PersonDataSource remoteDataSource,
+                                PersonLocalDataSource localDataSource, PersonCache cache) {
         mRemoteDataSource = remoteDataSource;
         mLocalDataSource = localDataSource;
         mCache = cache;
@@ -31,12 +32,12 @@ public final class PersonRepositoryImpl implements PersonRepository {
         return Completable.fromObservable(
                 mRemoteDataSource
                         .getPersons()
-                .flatMap(new Function<List<Person>, ObservableSource<?>>() {
-                    @Override
-                    public ObservableSource<?> apply(List<Person> people) throws Exception {
-                        return mLocalDataSource.insertPersons(people).toObservable();
-                    }
-                })
+                        .flatMap(new Function<List<Person>, ObservableSource<?>>() {
+                            @Override
+                            public ObservableSource<?> apply(List<Person> people) throws Exception {
+                                return mLocalDataSource.insertPersons(people).toObservable();
+                            }
+                        })
         );
     }
 
