@@ -2,6 +2,8 @@ package com.example.sampledagger.di;
 
 import android.content.Context;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -15,6 +17,7 @@ public class ApplicationModule {
     }
 
     @Provides
+    @Singleton
     public Context provideContext() {
         return mApplicationContext;
     }

@@ -3,6 +3,7 @@ package com.example.sampledagger.di;
 import java.io.IOException;
 
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -21,16 +22,19 @@ public class NetworkModule {
     private static final String BASE_URL = "https://randomuser.me";
 
     @Provides
+    @Singleton
     public Converter.Factory provideConverterFactory() {
         return GsonConverterFactory.create();
     }
 
     @Provides
+    @Singleton
     public CallAdapter.Factory provideCallAdapterFactory() {
         return RxJava2CallAdapterFactory.create();
     }
 
     @Provides
+    @Singleton
     @Named("http_logging_interceptor")
     public Interceptor provideHttpLogInterceptor() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
@@ -39,6 +43,7 @@ public class NetworkModule {
     }
 
     @Provides
+    @Singleton
     @Named("my_custom_interceptor")
     public Interceptor provideCustomInterceptor() {
         return new Interceptor() {
@@ -51,6 +56,7 @@ public class NetworkModule {
     }
 
     @Provides
+    @Singleton
     public OkHttpClient provideOkHttpClient(
             @Named("http_logging_interceptor") Interceptor httpLoggingInterceptor,
             @Named("my_custom_interceptor") Interceptor customInterceptor
@@ -62,6 +68,7 @@ public class NetworkModule {
     }
 
     @Provides
+    @Singleton
     public Retrofit provideRetrofit(
             Converter.Factory converterFactor,
             CallAdapter.Factory callAdapterFactory,

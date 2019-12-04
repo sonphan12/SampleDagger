@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sampledagger.MyApplication;
 import com.example.sampledagger.R;
 import com.example.sampledagger.data.PersonRepository;
 import com.example.sampledagger.di.AppComponent;
@@ -56,13 +57,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void injectComponent() {
-        AppComponent appComponent = DaggerAppComponent.builder()
-                .applicationModule(new ApplicationModule(getApplicationContext()))
-                .networkModule(new NetworkModule())
-                .storageModule(new StorageModule())
-                .build();
-
-        appComponent.inject(this);
+        AppComponent appComponent = MyApplication.getInstance().getAppComponent();
+        if (appComponent != null) {
+            appComponent.inject(this);
+        }
     }
 
     private void initList() {
